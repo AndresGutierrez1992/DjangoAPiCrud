@@ -1,14 +1,15 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from . import views
 
+# Crear el router
+router = DefaultRouter()
+router.register(r'marcas', views.MarcaViewSet)
+router.register(r'productos', views.ProductoViewSet)
 
+# Las URLs se generan automáticamente
 urlpatterns = [
-    path('marcas/', views.lista_marcas, name='lista_marcas'),              # GET, POST
-    path('marcas/<int:pk>/', views.detalle_marca, name='detalle_marca'),   # GET, PUT, PATCH, DELETE
-
-    path('productos/', views.lista_productos, name='lista_productos'),              # GET, POST
-    path('productos/<int:pk>/', views.detalle_producto, name='detalle_producto'), 
-
+    path('', include(router.urls)),
 ]
 
 

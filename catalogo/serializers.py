@@ -7,7 +7,13 @@ class MarcaSerializer(serializers.ModelSerializer):
         model = Marca            # Modelo asociado
         fields = ["id", "nombre", "pais"]  # Campos que vamos a devolver en JSON
 
-# Serializer para el producto
+# Serializer para crear/actualizar productos (acepta marca_id)
+class ProductoCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Producto
+        fields = ["id", "nombre", "precio", "marca"]
+
+# Serializer para mostrar productos (muestra marca como string)
 class ProductoSerializer(serializers.ModelSerializer):
     # Mostramos la categoría como nombre en lugar de solo el ID
     marca = serializers.StringRelatedField()
