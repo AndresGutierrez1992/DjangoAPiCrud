@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',  # Para autenticación por token
     'drf_yasg',
     'account',
     'catalogo',
@@ -53,7 +54,7 @@ REST_FRAMEWORK = {
  "rest_framework.authentication.TokenAuthentication", # Autenticación con tokens
  ],
  "DEFAULT_PERMISSION_CLASSES": [
- "rest_framework.permissions.AllowAny", # Por defecto, cualquiera puede acceder
+ "rest_framework.permissions.IsAuthenticated", # Por defecto, requiere autenticación
  ],
 }
 
