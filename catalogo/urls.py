@@ -10,6 +10,7 @@ router.register(r'productos', views.ProductoViewSet)
 # Las URLs se generan automáticamente
 urlpatterns = [
     path('', include(router.urls)),
+    path('perfil/', views.perfil_usuario, name='perfil_usuario'),
 ]
 
 

@@ -1,4 +1,5 @@
 from rest_framework import serializers  # Importamos la clase base de serializers
+from django.contrib.auth.models import User  # Importamos el modelo User
 from .models import Marca, Producto  # Importamos los modelos que vamos a serializar
 
 # Serializer para la marca
@@ -21,3 +22,13 @@ class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
         fields = ["id", "nombre", "precio", "marca"]
+
+# Serializer para el perfil de usuario
+class UserProfileSerializer(serializers.ModelSerializer):
+    """
+    Serializer para mostrar los datos del perfil del usuario autenticado
+    """
+    class Meta:
+        model = User
+        fields = ["id", "username", "email"]
+        read_only_fields = ["id", "username", "email"]  # Solo lectura

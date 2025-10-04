@@ -1,10 +1,12 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 
 from .models import Marca, Producto
-from .serializers import MarcaSerializer, ProductoSerializer, ProductoCreateSerializer
+from .serializers import MarcaSerializer, ProductoSerializer, ProductoCreateSerializer, UserProfileSerializer
 
 # ViewSet para Marca
 class MarcaViewSet(viewsets.ModelViewSet):
@@ -64,3 +66,24 @@ class ProductoViewSet(viewsets.ModelViewSet):
         # Retornar con el serializer de lectura
         response_serializer = ProductoSerializer(producto)
         return Response(response_serializer.data)
+
+
+@api_view(['GET'])
+def perfil_usuario(request):
+    """
+    Endpoint para obtener los datos del perfil del usuario autenticado.
+    
+    GET /api/catalogo/perfil/
+    Headers: Authorization: Token <tu_token>
+    
+    Retorna:
+    {
+        "id": 1,
+        "username": "usuario",
+        "email": "usuario@email.com"
+    }
+    """
+    # El usuario ya está autenticado gracias a la configuración global en settings.py
+    # (DEFAULT_PERMISSION_CLASSES: IsAuthenticated)
+    serializer = UserProfileSerializer(request.user)
+    return Response(serializer.data, status=status.HTTP_200_OK)
